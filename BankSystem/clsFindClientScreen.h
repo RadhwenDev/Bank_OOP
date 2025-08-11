@@ -23,7 +23,7 @@ private:
 public:
     static void ShowFindClientScreen()
     {
-        if (!CheckAccessRights(clsUser::enPermissions::pFindClient))
+        if (!CheckAccessRights(clsUser::pFindClient))
         {
             return;// this will exit the function and it will not continue
         }

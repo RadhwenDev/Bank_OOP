@@ -70,7 +70,7 @@ private:
 public:
     static void ShowUpdateClientScreen()
     {
-        if (!CheckAccessRights(clsUser::enPermissions::pUpdateClients))
+        if (!CheckAccessRights(clsUser::pUpdateClients))
         {
             return;// this will exit the function and it will not continue
         }

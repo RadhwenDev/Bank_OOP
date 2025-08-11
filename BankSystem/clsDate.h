@@ -15,6 +15,9 @@ private:
 	short _Day = 1;
 	short _Month = 1;
 	short _Year = 1900;
+	short _Hour;
+	short _Minute;
+	short _Second;
 
 public:
 
@@ -25,6 +28,9 @@ public:
 		_Day = now->tm_mday;
 		_Month = now->tm_mon + 1;
 		_Year = now->tm_year + 1900;
+		_Hour = now->tm_hour;
+		_Minute = now->tm_min;
+		_Second = now->tm_sec;
 	}
 
 	clsDate(string sDate)
@@ -145,6 +151,16 @@ public:
 	static string DateToString(clsDate Date)
 	{
 		return  to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
+	}
+
+	static string AllDateToString(clsDate Date)
+	{
+		return DateToString(Date) + " - " + to_string(Date._Hour) + ":" + to_string(Date._Minute) + ":" + to_string(Date._Second);
+	}
+
+	string AllDateToString()
+	{
+		return AllDateToString(*this);
 	}
 
 	string DateToString()

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "clsLoginScreen.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -8,7 +9,7 @@ using namespace std;
 int main()
 
 {
-    while(true)
+    while (Status)
     {
         clsLoginScreen::ShowLoginScreen();
     }

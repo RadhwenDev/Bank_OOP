@@ -118,7 +118,7 @@ public:
 
     static void ShowManageUsersMenue()
     {
-        if (!CheckAccessRights(clsUser::enPermissions::pManageUsers))
+        if (!CheckAccessRights(clsUser::pManageUsers))
         {
             return;// this will exit the function and it will not continue
         }

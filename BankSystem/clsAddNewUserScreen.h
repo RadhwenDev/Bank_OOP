@@ -73,7 +73,10 @@ private:
             cout << "\nManage Users? y/n? ";
             if (clsUtility::AreYouSure())
                 Permissions += clsUser::enPermissions::pManageUsers;
-            if (Permissions == 127)
+            cout << "\nLogin Register? y/n? ";
+            if (clsUtility::AreYouSure())
+                Permissions += clsUser::enPermissions::pLoginRegister;
+            if (Permissions == 255)
                 return -1;
             return Permissions;
         }

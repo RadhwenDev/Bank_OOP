@@ -296,5 +296,17 @@ public:
 		_AccountBalance -= Amount;
 		Save();
 	}
+
+	bool Transfer(float Amount, clsBankClient& DestinationClient)
+	{
+		if (Amount > DestinationClient.AccountBalance)
+			return false;
+		else
+		{
+			Withdraw(Amount);
+			DestinationClient.Deposit(Amount);
+			return true;
+		}
+	}
 };
 

@@ -21,7 +21,7 @@ private:
 public:
     static void ShowClientsList()
     {
-        if (!CheckAccessRights(clsUser::enPermissions::pListClients))
+        if (!CheckAccessRights(clsUser::pListClients))
         {
             return;// this will exit the function and it will not continue
         }

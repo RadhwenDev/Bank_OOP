@@ -44,10 +44,10 @@ private:
         if (clsString::UpperAllString(String) != "SKIP")
             User.Password = String;
 
-        cout << "\nEnter Permission: ";
+        cout << "\nPermission (y/n)? ";
 
         String = clsInputValidate::ReadString();
-        if (clsString::UpperAllString(String) != "SKIP")
+        if (clsUtility::AreYouSure())
             User.Permissions = _ReadPermissionsToSet();
     }
 
@@ -97,7 +97,10 @@ private:
             cout << "\nManage Users? y/n? ";
             if (clsUtility::AreYouSure())
                 Permissions += clsUser::enPermissions::pManageUsers;
-            if (Permissions == 127)
+            cout << "\nLogin Register? y/n? ";
+            if (clsUtility::AreYouSure())
+                Permissions += clsUser::enPermissions::pLoginRegister;
+            if (Permissions == 255)
                 return -1;
             return Permissions;
         }

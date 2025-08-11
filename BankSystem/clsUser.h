@@ -3,6 +3,9 @@
 #include <string>
 #include "clsPerson.h"
 #include "clsString.h"
+#include "clsBankClient.h"
+#include "clsDate.h"
+#include "clsUtility.h"
 #include <vector>
 #include <fstream>
 
@@ -10,6 +13,25 @@ using namespace std;
 class clsUser : public clsPerson
 {
 private:
+
+    static struct stUser
+    {
+        string Date;
+        string UserName;
+        string Password;
+        int Permissions;
+    };
+
+    static struct stTransfer
+    {
+        string Date;
+        string AccountNumber1;
+        string AccountNumber2;
+        float Amount;
+        float AccountBalance1;
+        float AccountBalance2;
+        string UserName;
+    };
 
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
     enMode _Mode;
@@ -19,14 +41,39 @@ private:
 
     bool _MarkedForDelete = false;
 
+    static stUser _ConvertLinetoUserLoginObject(string Line, string Seperator = "#//#")
+    {
+        vector<string> vUserData;
+        vUserData = clsString::Split(Line, Seperator);
+        stUser User;
+        User.Date = vUserData[0];
+        User.UserName = vUserData[1];
+        User.Password = clsUtility::DecryptText(vUserData[2], 2);
+        User.Permissions = stoi(vUserData[3]);
+        return User;
+    }
+
+    static stTransfer _ConvertLinetoUserTransferObject(string Line, string Seperator = "#//#")
+    {
+        vector<string> vUserDetails;
+        vUserDetails = clsString::Split(Line, Seperator);
+        stTransfer Transfer;
+        Transfer.Date = vUserDetails[0];
+        Transfer.AccountNumber1 = vUserDetails[1];
+        Transfer.AccountNumber2 = vUserDetails[2];
+        Transfer.Amount = stof(vUserDetails[3]);
+        Transfer.AccountBalance1 = stof(vUserDetails[4]);
+        Transfer.AccountBalance2 = stof(vUserDetails[5]);
+        Transfer.UserName = vUserDetails[6];
+        return Transfer;
+    }
+
     static clsUser _ConvertLinetoUserObject(string Line, string Seperator = "#//#")
     {
         vector<string> vUserData;
         vUserData = clsString::Split(Line, Seperator);
-
         return clsUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2],
-            vUserData[3], vUserData[4], vUserData[5], stoi(vUserData[6]));
-
+            vUserData[3], vUserData[4], clsUtility::DecryptText(vUserData[5], 2), stoi(vUserData[6]));
     }
 
     static string _ConverUserObjectToLine(clsUser User, string Seperator = "#//#")
@@ -38,20 +85,70 @@ private:
         UserRecord += User.Email + Seperator;
         UserRecord += User.Phone + Seperator;
         UserRecord += User.UserName + Seperator;
-        UserRecord += User.Password + Seperator;
+        UserRecord += clsUtility::EncryptText(User.Password, 2) + Seperator;
         UserRecord += to_string(User.Permissions);
 
         return UserRecord;
 
     }
 
+    static string _ConverTransferRegistreToLine(clsBankClient Client1, clsBankClient Client2, clsUser User, float Amount, string Seperator = "#//#")
+    {
+        clsDate Date;
+        string UserRecord = "";
+        UserRecord += Date.AllDateToString() + Seperator;
+        UserRecord += Client1.AccountNumber + Seperator;
+        UserRecord += Client2.AccountNumber + Seperator;
+        UserRecord += to_string(Amount) + Seperator;
+        UserRecord += to_string(Client1.AccountBalance) + Seperator;
+        UserRecord += to_string(Client2.AccountBalance) + Seperator;
+        UserRecord += User.UserName;
+        return UserRecord;
+    }
+
+    static string _ConverUserRegistreToLine(clsUser User, string Seperator = "#//#")
+    {
+        clsDate Date;
+        string UserRecord = "";
+        UserRecord += Date.AllDateToString() + Seperator;
+        UserRecord += User.UserName + Seperator;
+        UserRecord += clsUtility::EncryptText(User.Password, 2) + Seperator;
+        UserRecord += to_string(User.Permissions);
+        return UserRecord;
+    }
+
     static  vector <clsUser> _LoadUsersDataFromFile()
     {
-
         vector <clsUser> vUsers;
 
         fstream MyFile;
-        MyFile.open("Users.txt", ios::in);//read Mode
+        MyFile.open("Users.txt", ios::in);
+
+        if (MyFile.is_open())
+        {
+            string Line;
+
+
+            while (getline(MyFile, Line))
+            {
+
+                clsUser User = _ConvertLinetoUserObject(Line);
+
+                vUsers.push_back(User);
+            }
+
+            MyFile.close();
+        }
+        return vUsers;
+    }
+
+    static  vector <stUser> _LoadUsersLoginRegisterDataFromFile()
+    {
+
+        vector <stUser> vUsers;
+
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt", ios::in);//read Mode
 
         if (MyFile.is_open())
         {
@@ -62,7 +159,37 @@ private:
             while (getline(MyFile, Line))
             {
 
-                clsUser User = _ConvertLinetoUserObject(Line);
+                stUser User = _ConvertLinetoUserLoginObject(Line);
+
+                vUsers.push_back(User);
+            }
+
+            MyFile.close();
+
+        }
+
+        return vUsers;
+
+    }
+
+    static  vector <stTransfer> _LoadUsersTransferLogDataFromFile()
+    {
+
+        vector <stTransfer> vUsers;
+
+        fstream MyFile;
+        MyFile.open("TransferLog.txt", ios::in);//read Mode
+
+        if (MyFile.is_open())
+        {
+
+            string Line;
+
+
+            while (getline(MyFile, Line))
+            {
+
+                stTransfer User = _ConvertLinetoUserTransferObject(Line);
 
                 vUsers.push_back(User);
             }
@@ -153,8 +280,32 @@ public:
 
     enum enPermissions {
         eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
-        pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
+        pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64, pLoginRegister = 128
     };
+
+    static void _SaveUsersRegisterToFile(clsUser User)
+    {
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+            MyFile << _ConverUserRegistreToLine(User) << endl;
+            MyFile.close();
+        }
+    }
+
+    static void _SaveTransferLogToFile(clsBankClient Client1, clsBankClient Client2,clsUser User, float Amount)
+    {
+        fstream MyFile;
+        MyFile.open("TransferLog.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+            MyFile << _ConverTransferRegistreToLine(Client1, Client2, User, Amount) << endl;
+            MyFile.close();
+        }
+    }
 
     clsUser(enMode Mode, string FirstName, string LastName,
         string Email, string Phone, string UserName, string Password,
@@ -347,6 +498,16 @@ public:
         return _LoadUsersDataFromFile();
     }
 
+    static vector <stUser> GetUsersLoginList()
+    {
+        return _LoadUsersLoginRegisterDataFromFile();
+    }
+
+    static vector <stTransfer> GetTransferLogList()
+    {
+        return _LoadUsersTransferLogDataFromFile();
+    }
+
     bool CheckAccessPermission(enPermissions Permission)
     {
         if (this->Permissions == enPermissions::eAll)
@@ -358,4 +519,7 @@ public:
             return false;
 
     }
+
+    friend class clsLoginRegisterScreen;
+    friend class clsTransferLog;
 };

@@ -46,7 +46,7 @@ private:
 public:
     static void ShowAddNewClientScreen()
     {
-        if (!CheckAccessRights(clsUser::enPermissions::pAddNewClient))
+        if (!CheckAccessRights(clsUser::pAddNewClient))
         {
             return;// this will exit the function and it will not continue
         }
