@@ -29,7 +29,10 @@ private:
 			CurrentUser = clsUser::Find(UserName, Password);
 
 			LoginFailed = CurrentUser.IsEmpty();
-			t--;
+			if (LoginFailed)
+			{
+				t--;
+			}
 		} while (LoginFailed && t > 0);
 		if (t == 0)
 		{
