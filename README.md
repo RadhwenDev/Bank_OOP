@@ -43,13 +43,13 @@ Un système de gestion bancaire simple mais complet développé en **C++** sous 
 
 ## Captures d'écran
 
-![Login Screen](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/LoginScreen.png)  
-![Main Menu](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/MainMenue.png)  
-![Client List](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/ClientList.png)  
-![Find Client](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/FindClient.png)  
-![Transactions Menu](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/TransactionsMenu.png)  
-![Manage Users](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/ManageUsers.png)  
-![Currency Exchange](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/CurrencyExchange.png)  
-![Access Denied](C:/Users/ASUS/Pictures/Screen_Shots/BankC++OOP/AccessDenied.png)
+![Login Screen](ScreenShots/LoginScreen.png)  
+![Main Menu](ScreenShots/MainMenue.png)  
+![Client List](ScreenShots/ClientList.png)  
+![Find Client](ScreenShots/FindClient.png)  
+![Transactions Menu](ScreenShots/TransactionsMenu.png)  
+![Manage Users](ScreenShots/ManageUsers.png)  
+![Currency Exchange](ScreenShots/CurrencyExchange.png)  
+![Access Denied](ScreenShots/AccessDenied.png)
 
 ## Structure du projet
