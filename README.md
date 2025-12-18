@@ -1,1 +1,57 @@
-"# Bank_OOP" 
+# Banking Management System - C++
+
+Un système de gestion bancaire simple mais complet développé en **C++** sous forme d'application console. Ce projet implémente une interface textuelle avec authentification multi-utilisateurs, gestion de clients, transactions bancaires, et un module de conversion de devises.
+
+## Fonctionnalités principales
+
+### 🔐 Authentification & Sécurité
+- Écran de connexion avec **username** et **password**
+- Limitation à **3 tentatives** de connexion
+- Enregistrement automatique de l'historique des connexions (Login Register)
+- Système de **permissions différenciées** :
+  - **Admin (Permissions = 0)** : Accès complet à toutes les fonctionnalités
+  - **Utilisateur limité (Permissions = -1)** : Accès **exclusif** au module Currency Exchange
+
+### 👥 Gestion des Clients
+- Afficher la liste complète des clients
+- Ajouter un nouveau client
+- Supprimer un client (par numéro de compte)
+- Modifier les informations d'un client
+- Rechercher un client par numéro de compte
+- Affichage détaillé : Nom, prénom, email, téléphone, PIN, solde
+
+### 💰 Transactions Bancaires
+- Dépôt (Deposit)
+- Retrait (Withdraw)
+- Transfert entre comptes
+- Affichage du solde total de la banque
+- Historique des transferts
+
+### 👤 Gestion des Utilisateurs (Admin uniquement)
+- Lister tous les utilisateurs
+- Ajouter un nouvel utilisateur
+- Supprimer un utilisateur
+- Modifier un utilisateur
+- Rechercher un utilisateur
+
+### 🌍 Currency Exchange (Conversion de Devises)
+- Accessible par **tous les utilisateurs** (même limités)
+- Lister les devises disponibles
+- Rechercher une devise
+- Mettre à jour les taux de change
+- Calculateur de conversion
+
+## Captures d'écran
+
+![Login Screen](screenshots/login.png)  
+![Main Menu](screenshots/main_menu.png)  
+![Client List](screenshots/client_list.png)  
+![Find Client](screenshots/find_client.png)  
+![Transactions Menu](screenshots/transactions.png)  
+![Manage Users](screenshots/manage_users.png)  
+![Currency Exchange](screenshots/currency_exchange.png)  
+![Access Denied](screenshots/access_denied.png)
+
+> *(Ajoute tes propres captures d'écran dans un dossier `screenshots/` pour que les liens fonctionnent)*
+
+## Structure du projet
