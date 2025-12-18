@@ -43,13 +43,13 @@ Un système de gestion bancaire simple mais complet développé en **C++** sous 
 
 ## Captures d'écran
 
-![Login Screen](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/LoginScreen.png)  
-![Main Menu](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/MainMenue.png)  
-![Client List](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/ClientList.png)  
-![Find Client](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/FindClient.png)  
-![Transactions Menu](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/TransactionsMenu.png)  
-![Manage Users](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/ManageUsers.png)  
-![Currency Exchange](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/CurrencyExchange.png)  
-![Access Denied](C:/Users/ASUS/Desktop/C++/Course11/BankSystem/BankSystem/ScreenShots/AccessDenied.png)
+![Login Screen](ScreenShots/LoginScreen.png)  
+![Main Menu](ScreenShots/MainMenue.png)  
+![Client List](ScreenShots/ClientList.png)  
+![Find Client](ScreenShots/FindClient.png)  
+![Transactions Menu](ScreenShots/TransactionsMenu.png)  
+![Manage Users](ScreenShots/ManageUsers.png)  
+![Currency Exchange](ScreenShots/CurrencyExchange.png)  
+![Access Denied](ScreenShots/AccessDenied.png)
 
 ## Structure du projet
